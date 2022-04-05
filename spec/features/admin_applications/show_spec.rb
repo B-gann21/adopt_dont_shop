@@ -59,6 +59,11 @@ RSpec.describe "Admin Applications" do
         expect(page).to_not have_button("Approve Pet")
         expect(page).to have_content("Approved")
       end
+
+      within "#pet-#{@pet1.id}" do
+        expect(page).to_not have_button("Approve Pet")
+        expect(page).to have_content("Approved")
+      end
     end
   end
 
@@ -80,6 +85,11 @@ RSpec.describe "Admin Applications" do
       end
 
       within "#pet-#{@pet2.id}" do
+        expect(page).to_not have_button("Reject Pet")
+        expect(page).to have_content("Rejected")
+      end
+
+      within "#pet-#{@pet1.id}" do
         expect(page).to_not have_button("Reject Pet")
         expect(page).to have_content("Rejected")
       end
