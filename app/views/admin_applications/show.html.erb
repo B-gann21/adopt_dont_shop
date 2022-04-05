@@ -19,8 +19,8 @@
       <p>Status: Rejected</p>
     <% else %>
       <p>Status: Pending Approval</p>
-      <p><%= button_to "Approve Pet", "/admin/applications/#{@application.id}?status=approved&pet_id=#{pet.id}", method: :post %><p>
-      <p><%= button_to "Reject Pet", "/admin/applications/#{@application.id}?status=rejected&pet_id=#{pet.id}", method: :post %><p>
+      <p><%= button_to "Approve Pet", "/admin/applications/#{@application.id}?status=approved&pet_id=#{pet.id}", method: :patch %><p>
+      <p><%= button_to "Reject Pet", "/admin/applications/#{@application.id}?status=rejected&pet_id=#{pet.id}", method: :patch %><p>
     <% end %>
 
     <p>Age: <%= pet.age %></p>
