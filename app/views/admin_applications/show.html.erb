@@ -15,9 +15,12 @@
     <p><%= pet.name %></p>
     <% if params[:status] == "approved" && params[:pet_id] == "#{pet.id}"%>
       <p>Status: Approved</p>
+    <% elsif params[:status] == "rejected" && params[:pet_id] == "#{pet.id}"%>
+      <p>Status: Rejected</p>
     <% else %>
       <p>Status: Pending Approval</p>
       <p><%= button_to "Approve Pet", "/admin/applications/#{@application.id}?status=approved&pet_id=#{pet.id}", method: :post %><p>
+      <p><%= button_to "Reject Pet", "/admin/applications/#{@application.id}?status=rejected&pet_id=#{pet.id}", method: :post %><p>
     <% end %>
 
     <p>Age: <%= pet.age %></p>
