@@ -31,9 +31,9 @@ RSpec.describe "Admin Applications" do
 
     click_button "Submit Application"
 
-    @application = Application.first
+    @application_1 = Application.first
 
-    visit "/admin/applications/#{@application.id}"
+    visit "/admin/applications/#{@application_1.id}"
   end
 
   describe 'approving an application' do
@@ -42,7 +42,7 @@ RSpec.describe "Admin Applications" do
         click_button "Approve Pet"
       end
 
-      expect(current_path).to eq("/admin/applications/#{@application.id}")
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
 
       within "#pet-#{@pet1.id}" do
         expect(page).to_not have_button("Approve Pet")
@@ -53,7 +53,7 @@ RSpec.describe "Admin Applications" do
         click_button "Approve Pet"
       end
 
-      expect(current_path).to eq("/admin/applications/#{@application.id}")
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
 
       within "#pet-#{@pet2.id}" do
         expect(page).to_not have_button("Approve Pet")
@@ -73,7 +73,7 @@ RSpec.describe "Admin Applications" do
         click_button "Reject Pet"
       end
 
-      expect(current_path).to eq("/admin/applications/#{@application.id}")
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
 
       within "#pet-#{@pet1.id}" do
         expect(page).to_not have_button("Reject Pet")
@@ -92,6 +92,50 @@ RSpec.describe "Admin Applications" do
       within "#pet-#{@pet1.id}" do
         expect(page).to_not have_button("Reject Pet")
         expect(page).to have_content("Rejected")
+      end
+    end
+  end
+
+  describe 'rejecting or accepting a pet is unique to the application' do
+    before :each do
+      visit "/pets"
+
+      click_link "Start an Application"
+
+      fill_in :name, with: "William Jefferstein"
+      fill_in :street_address, with: "111 Main Lane"
+      fill_in :city, with: "Luxemburg"
+      fill_in :state, with: "Mars"
+      fill_in :zip_code, with: "12121"
+      click_button "Submit"
+
+      fill_in :search, with: "Mr. Pirate"
+      click_button "Search"
+      click_button "Adopt this Pet"
+
+      click_button "Submit Application"
+
+      @application_2 = Application.last
+
+      visit "/admin/applications/#{@application_1.id}"
+    end
+
+    it 'rejecting a pet on application 1 should have no effect on application 2' do
+      within "#pet-#{@pet1.id}" do
+        click_button "Reject Pet"
+      end
+
+      within "#pet-#{@pet1.id}" do
+        expect(page).to have_content("Rejected")
+        expect(page).to_not have_button("Reject Pet")
+        expect(page).to_not have_button("Accept Pet")
+      end
+
+      visit "/admin/applications/#{@application_2.id}"
+
+      within "#pet-#{@pet1.id}" do
+        expect(page).to have_button("Reject Pet")
+        expect(page).to have_button("Approve Pet")
       end
     end
   end
