@@ -1,0 +1,6 @@
+.show {
+  padding: 5px;
+  width: 30%;
+  background-color: rgba(160, 160, 200, 0.5);
+  border: 2px ridge darkgrey;
+}

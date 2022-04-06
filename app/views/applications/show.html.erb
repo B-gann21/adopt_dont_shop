@@ -1,26 +1,28 @@
-<h1>Application <%= @application.id %> </h1>
-<h2>Name: <%= @application.name %></h2>
-<p>
-  Address: <%= @application.street_address %>,
-           <%= @application.city %>,
-           <%= @application.state %>,
-           <%= @application.zip_code %>
-</p>
-<p>Description: <%= @application.description %> </p>
-<p>Status: <%= @application.status %></p>
+<div class="show">
+  <h1>Application <%= @application.id %> </h1>
+  <h2>Name: <%= @application.name %></h2>
+  <p>
+    Address: <%= @application.street_address %>,
+             <%= @application.city %>,
+             <%= @application.state %>,
+             <%= @application.zip_code %>
+  </p>
+  <p>Description: <%= @application.description %> </p>
+  <p>Status: <%= @application.status %></p>
+</div><br>
 
-<div id="pets-to-adopt">
+<div id="pets-to-adopt" class="show">
   <% if @application.pets %>
     <h3>Desired Pets: <% @application.pets.each do |pet| %></h3>
       <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
     <% end %>
   <% end %>
-</div>
+</div><br>
 
-<div id="search-bar">
+<div id="search-bar" class="show">
   <% if @application.status == "In Progress" %>
     <h2>Add a pet to this application:</h2>
-    <%= form_with url:"/applications/#{@application.id}?search=#{params[:search]}", method: :get, local: true do |form| %>
+    <%= form_with url:"/applications/#{@application.id}?search=#{params[:search]}", method: :get, local: true, class: "nested-form" do |form| %>
     <%= form.label :search %>
     <%= form.text_field :search %><br>
     <%= form.submit "Search" %>
@@ -32,15 +34,15 @@
           <p>Adoptable: <%= pet.adoptable %></p>
           <p>Age: <%= pet.age %></p>
           <p>Breed: <%= pet.breed %></p>
-          <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post, class: "button" %>
+          <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %>
         </div>
       <% end %>
     <% end %>
   <% end %>
-</div>
+</div><br>
 
 <% if params[:submit] == 'true' %>
-  <%= form_with url: "/applications/#{@application.id}?status=pending", method: :patch, local: true do |form| %>
+  <%= form_with url: "/applications/#{@application.id}?status=pending", method: :patch, local: true, class: "new-form" do |form| %>
     <%= form.label :description %>
     <%= form.text_field :description %>
     <%= form.submit "Submit Application" %>

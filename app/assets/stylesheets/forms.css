@@ -7,13 +7,16 @@
   border-bottom: 2px ridge red;
 }
 
-form.button {
-  padding: 5px;
-  width: 10%;
-}
-
-form {
+.new-form {
   padding: 5px;
   width: 30%;
   background-color: rgba(160, 160, 200, 0.5);
+  border: 2px ridge darkgrey;
+}
+
+.nested-form {
+  padding: 5px;
+  width: 50%;
+  background-color: rgba(160, 160, 200, 0.5);
+  border: 2px ridge darkgrey;
 }
