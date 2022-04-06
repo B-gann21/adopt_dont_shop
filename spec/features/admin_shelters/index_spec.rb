@@ -8,6 +8,7 @@ RSpec.describe 'the admin shelters index' do
     @pet1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @application1 = @pet1.applications.create!(name: "Billy Swanson", street_address: "123 Main Lane", city: "Dallas", state: "New Hampshire", zip_code: "12121")
   end
 
   it 'shows the admin/index in reverse alphabetical order' do
@@ -20,9 +21,8 @@ RSpec.describe 'the admin shelters index' do
   end
 
   it 'shows the shelters with pending applications' do
-    application1 = @pet1.applications.create!(name: "Billy Swanson", street_address: "123 Main Lane", city: "Dallas", state: "New Hampshire", zip_code: "12121")
 
-    visit "/applications/#{application1.id}"
+    visit "/applications/#{@application1.id}"
 
     fill_in :search, with: "Mr. Pirate"
 
