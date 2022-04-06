@@ -8,10 +8,11 @@ RSpec.describe 'the veterinary offices index' do
     @vet_office_1.veterinarians.create(name: 'Morgan', on_call: true, review_rating: 10)
     @vet_office_1.veterinarians.create(name: 'Heather', on_call: true, review_rating: 9)
     @vet_office_3.veterinarians.create(name: 'John', on_call: true, review_rating: 9)
+
+    visit "/veterinary_offices"
   end
 
   it 'lists all the vet office names' do
-    visit "/veterinary_offices"
 
     expect(page).to have_content(@vet_office_1.name)
     expect(page).to have_content(@vet_office_2.name)
@@ -19,7 +20,6 @@ RSpec.describe 'the veterinary offices index' do
   end
 
   it 'lists the veterinary offices by most recently created first' do
-    visit "/veterinary_offices"
 
     oldest = find("#veterinary-office-#{@vet_office_1.id}")
     mid = find("#veterinary-office-#{@vet_office_2.id}")
@@ -42,7 +42,6 @@ RSpec.describe 'the veterinary offices index' do
   end
 
   it 'has a link to sort offices by the number of vets they have' do
-    visit '/veterinary_offices'
 
     expect(page).to have_link("Sort by number of veterinarians")
     click_link("Sort by number of veterinarians")
@@ -53,7 +52,6 @@ RSpec.describe 'the veterinary offices index' do
   end
 
   it 'has a link to update each veterinary office' do
-    visit "/veterinary_offices"
 
     within "#veterinary-office-#{@vet_office_1.id}" do
       expect(page).to have_link("Update #{@vet_office_1.name}")
@@ -72,7 +70,6 @@ RSpec.describe 'the veterinary offices index' do
   end
 
   it 'has a link to delete each veterinary office' do
-    visit "/veterinary_offices"
 
     within "#veterinary-office-#{@vet_office_1.id}" do
       expect(page).to have_link("Delete #{@vet_office_1.name}")

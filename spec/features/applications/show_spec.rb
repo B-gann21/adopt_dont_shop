@@ -45,9 +45,7 @@ RSpec.describe 'applications' do
         expect(page).to_not have_content("Adoptable: false")
         expect(page).to_not have_content("Age: 6")
       end
-
     end
-
   end
 
   describe '#show pets selected for adoption' do
