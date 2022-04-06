@@ -2,17 +2,17 @@
 
 <%= link_to "Sort by number of pets", "/shelters?sort=pet_count" %>
 
-<%= form_with url: "/shelters", method: :get, local: true do |f| %>
+<%= form_with url: "/shelters", method: :get, local: true, class: "new-form" do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
 
 <% @shelters.each do |shelter| %>
-  <div id="shelter-<%= shelter.id %>">
+  <div id="shelter-<%= shelter.id %>" class="show">
     <h3><%= shelter.name %></h3>
     <p>Created at: <%= shelter.created_at %></p>
     <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
     <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
-  </div>
+  </div><br>
 <% end %>
