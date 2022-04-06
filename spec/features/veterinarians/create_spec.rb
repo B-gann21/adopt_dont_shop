@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe 'veterinarian creation' do
   before(:each) do
     @vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+
+    visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
   end
 
   describe 'the veterinarian new' do
     it 'renders the new form' do
-      visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
 
       expect(page).to have_content('New Veterinarian')
       expect(find('form')).to have_content('Name')
@@ -19,8 +20,6 @@ RSpec.describe 'veterinarian creation' do
   describe 'the veterinarian create' do
     context 'given valid data' do
       it 'creates the vet and redirects to the veterinary offices vet index' do
-        visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
-
         fill_in 'Name', with: 'Dr. Burstyn'
         fill_in 'Review rating', with: 10
         check 'On call'
@@ -34,8 +33,6 @@ RSpec.describe 'veterinarian creation' do
 
     context 'given invalid data' do
       it 're-renders the new form' do
-        visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
-
         click_button 'Save'
         expect(page).to have_current_path(
           "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
