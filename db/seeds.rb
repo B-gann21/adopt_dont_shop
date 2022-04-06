@@ -10,7 +10,13 @@ VeterinaryOffice.destroy_all
 @shelter3 = Shelter.create!(foster_program: true, name: "Pet Rescue Denver", city: "Denver", rank: 432)
 
 @pet1 = @shelter.pets.create!(adoptable: true, age: 3, breed: "Shepard", name: "Alfonso")
-@pet2 = @shelter.pets.create!(adoptable: true, age: 6, breed: "Shepard", name: "Geoffrey")
-@pet3 = @shelter.pets.create!(adoptable: true, age: 7, breed: "Shepard", name: "Alfonso")
+@pet2 = @shelter.pets.create!(adoptable: true, age: 6, breed: "Daschund", name: "Geoffrey")
+@pet3 = @shelter.pets.create!(adoptable: true, age: 7, breed: "Pitbull", name: "Harold")
 
-@application = @pet1.applications.create!(name: "Billy Swanson", street_address: "543 Cherry St", city: "Denver", state: "CO", zip_code: "80033")
+@pet4 = @shelter2.pets.create!(adoptable: true, age: 8, breed: "Cat", name: "Arnie")
+@pet5 = @shelter2.pets.create!(adoptable: true, age: 10, breed: "Bulldog", name: "Bruce")
+@pet6 = @shelter2.pets.create!(adoptable: true, age: 5, breed: "Terrier", name: "Terry")
+
+@pet7 = @shelter.pets.create!(adoptable: true, age: 4, breed: "Cat", name: "Fred")
+@pet8 = @shelter.pets.create!(adoptable: true, age: 8, breed: "Horse", name: "Gerald")
+@pet9 = @shelter.pets.create!(adoptable: true, age: 11, breed: "Labrador", name: "Francine")
